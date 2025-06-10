@@ -2,6 +2,12 @@
 
 A semi-incremental streaming markdown parser and renderer for the web, designed for real-time applications such as chat UIs, live documentation, and collaborative editors.
 
+## Install
+
+```bash
+npm install semidown
+```
+
 ## Key Features
 
 - **Semi-incremental Parsing:**
@@ -23,10 +29,10 @@ A semi-incremental streaming markdown parser and renderer for the web, designed 
 Below is a simplified usage example. See `src/main.ts` for a full-featured demo with UI controls.
 
 ```typescript
-import { StreamingMarkdownParser } from "./lib/streaming-markdown";
+import { Semidown } from "semidown";
 
 const outputContainer = document.getElementById("output");
-const parser = new StreamingMarkdownParser(outputContainer);
+const parser = new Semidown(outputContainer);
 
 // Simulate streaming input
 const markdown = "# Hello\nThis is a **streaming** demo.";

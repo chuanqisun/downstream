@@ -7,7 +7,7 @@ import type { BlockEndPayload, BlockStartPayload, BlockUpdatePayload } from "./t
  * 4) Orchestrator: wires chunker → parser → renderer.
  *    Supports write(), end(), pause/resume, destroy().
  */
-export class StreamingMarkdownParser {
+export class Semidown {
   private chunker = new MarkdownStreamChunker();
   private parser = new MarkdownParser();
   private renderer: HTMLRenderer;

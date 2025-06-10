@@ -1,8 +1,8 @@
-import { StreamingMarkdownParser } from "../lib/streaming-markdown";
+import { Semidown } from "../lib/semidown";
 import "./style.css";
 
-class StreamingDemo {
-  private parser: StreamingMarkdownParser | null = null;
+class DemoApp {
+  private parser: Semidown | null = null;
   private streamingInterval: number | null = null;
   private currentText = "";
   private currentIndex = 0;
@@ -100,7 +100,7 @@ This demonstrates how the streaming parser handles various markdown elements as 
       return;
     }
 
-    this.parser = new StreamingMarkdownParser(this.outputContainer);
+    this.parser = new Semidown(this.outputContainer);
     this.updateStatus("Streaming...");
     this.updateButtons("streaming");
 
@@ -218,4 +218,4 @@ This demonstrates how the streaming parser handles various markdown elements as 
 }
 
 // Initialize the demo when the page loads
-new StreamingDemo();
+new DemoApp();
