@@ -7,6 +7,22 @@
     "build": "tsc && vite build && vite build --config vite-site.config.ts",
     "preview": "vite preview"
   },
+  "exports": {
+    ".": {
+      "import": "./dist/semidown.js",
+      "require": "./dist/semidown.umd.cjs"
+    }
+  },
+  "files": [
+    "dist",
+    "lib",
+    "src/main.ts",
+    "src/style.css",
+    "README.md",
+    "CHANGELOG.md"
+  ],
+  "main": "./dist/semidown.umd.cjs",
+  "module": "./dist/semidown.js",
   "devDependencies": {
     "typescript": "~5.8.3",
     "vite": "^6.3.5"
