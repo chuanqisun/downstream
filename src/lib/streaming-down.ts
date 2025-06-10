@@ -1,5 +1,7 @@
 // streamingMarkdownParser.ts
-import { marked } from "marked";
+import { Marked } from "marked";
+import markedShiki from "marked-shiki";
+import { bundledLanguages, createHighlighter } from "shiki/bundle/web";
 
 /**
  * Emits events: 'block-start', 'block-update', 'block-end', 'end'
@@ -111,12 +113,49 @@ class MarkdownStreamChunker {
  * 2) Wraps marked.parse() and detects unclosed fenced-code blocks.
  */
 class MarkdownParser {
+  private marked: Marked | null = null;
+  private initPromise: Promise<void>;
+
+  constructor() {
+    this.initPromise = this.initialize();
+  }
+
+  private async initialize(): Promise<void> {
+    const supportedLanguages = Object.keys(bundledLanguages);
+
+    const highlighter = await createHighlighter({
+      langs: supportedLanguages,
+      themes: ["dark-plus"],
+    });
+
+    this.marked = new Marked().use(
+      markedShiki({
+        highlight(code, lang, props) {
+          const highlightableLanguage = supportedLanguages.includes(lang) ? lang : "text";
+
+          const highlightedHtml = highlighter.codeToHtml(code, {
+            lang: highlightableLanguage,
+            theme: "dark-plus",
+          });
+
+          return highlightedHtml;
+        },
+      })
+    );
+  }
+
   /**
    * Parse markdown → HTML, and detect if there's an odd number
    * of ``` fences (i.e. an unclosed code block).
    */
-  parse(markdown: string): { html: string; isComplete: boolean } {
-    const html = marked.parse(markdown) as string;
+  async parse(markdown: string): Promise<{ html: string; isComplete: boolean }> {
+    await this.initPromise;
+
+    if (!this.marked) {
+      throw new Error("Markdown parser not initialized");
+    }
+
+    const html = await this.marked.parse(markdown);
     const fences = (markdown.match(/```/g) || []).length;
     const isComplete = fences % 2 === 0;
     return { html, isComplete };
@@ -231,19 +270,19 @@ export class StreamingMarkdownParser {
     this.renderer.createBlock(p.blockId);
   };
 
-  private onBlockUpdate = (p: BlockUpdatePayload) => {
+  private onBlockUpdate = async (p: BlockUpdatePayload) => {
     if (this.state !== "processing") return;
-    const { html, isComplete } = this.parser.parse(p.content);
+    const { html, isComplete } = await this.parser.parse(p.content);
     this.renderer.updateBlock(p.blockId, html);
-    // we don’t finalize here; wait for explicit block-end
+    // we don't finalize here; wait for explicit block-end
   };
 
-  private onBlockEnd = (p: BlockEndPayload) => {
+  private onBlockEnd = async (p: BlockEndPayload) => {
     if (this.state !== "processing") return;
-    // For completeness, re‐parse the final content to see if it's now “complete”
+    // For completeness, re‐parse the final content to see if it's now "complete"
     const container = this.renderer["blocks"].get(p.blockId);
     const finalMD = container?.innerText || "";
-    const { isComplete } = this.parser.parse(finalMD);
+    const { isComplete } = await this.parser.parse(finalMD);
     this.renderer.finalizeBlock(p.blockId, isComplete);
   };
 

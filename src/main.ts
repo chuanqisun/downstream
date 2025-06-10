@@ -150,8 +150,8 @@ This demonstrates how the streaming parser handles various markdown elements as 
         return;
       }
 
-      // Send a small chunk of text
-      const chunkSize = Math.random() * 10 + 1; // 1-10 characters
+      // Send a random chunk of text (1-10 characters)
+      const chunkSize = Math.floor(Math.random() * 15) + 5; // Now returns integer 5-20
       const chunk = this.currentText.slice(this.currentIndex, this.currentIndex + chunkSize);
 
       if (this.parser) {
