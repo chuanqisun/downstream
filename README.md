@@ -1,6 +1,6 @@
 # Semidown
 
-A semi-incremental streaming markdown parser and renderer for the web, designed for real-time applications such as chat UIs, live documentation, and collaborative editors.
+A semi-incremental streaming markdown parser and renderer for the web, designed for handling LLM streaming out.
 
 [Try the live demo!](https://chuanqisun.github.io/semidown/)
 
