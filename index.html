@@ -8,18 +8,20 @@
   </head>
   <body>
     <div id="app">
-      <h1>Streaming Markdown Parser Demo</h1>
-      <div class="demo-container">
+      <header class="header">
+        <h1>Streaming Markdown Parser Demo</h1>
+        <div class="controls">
+          <button id="start-btn">Start</button>
+          <button id="pause-btn" disabled>Pause</button>
+          <button id="resume-btn" disabled>Resume</button>
+          <button id="stop-btn" disabled>Stop</button>
+        </div>
+        <div class="status">Status: <span id="status">Ready</span></div>
+      </header>
+      <div class="main-container">
         <div class="left-panel">
           <h2>Markdown Input</h2>
           <textarea id="markdown-input" placeholder="Paste your markdown here..."></textarea>
-          <div class="controls">
-            <button id="start-btn">Start</button>
-            <button id="pause-btn" disabled>Pause</button>
-            <button id="resume-btn" disabled>Resume</button>
-            <button id="stop-btn" disabled>Stop</button>
-          </div>
-          <div class="status">Status: <span id="status">Ready</span></div>
         </div>
         <div class="right-panel">
           <h2>Rendered Output</h2>

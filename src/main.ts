@@ -127,14 +127,28 @@ This demonstrates how the streaming parser handles various markdown elements as 
 
   private stop(): void {
     if (this.parser) {
-      this.parser.destroy();
-      this.parser = null;
+      // Fast forward: send all remaining text at once
+      if (this.currentIndex < this.currentText.length) {
+        const remainingText = this.currentText.slice(this.currentIndex);
+        this.parser.write(remainingText);
+        this.parser.end();
+        this.currentIndex = this.currentText.length;
+      }
+
+      // Stop the streaming interval
+      this.pauseStreaming();
+
+      // Update UI to complete state
+      this.updateStatus("Complete");
+      this.updateButtons("complete");
+    } else {
+      // If no parser exists, just reset everything
+      this.pauseStreaming();
+      this.currentIndex = 0;
+      this.outputContainer.innerHTML = "";
+      this.updateStatus("Ready");
+      this.updateButtons("ready");
     }
-    this.pauseStreaming();
-    this.currentIndex = 0;
-    this.outputContainer.innerHTML = "";
-    this.updateStatus("Ready");
-    this.updateButtons("ready");
   }
 
   private startStreaming(): void {

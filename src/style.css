@@ -1,51 +1,111 @@
 body {
   margin: 0;
+  height: 100vh;
+  overflow: hidden;
 }
 
 #app {
-  max-width: 1400px;
-  margin: 0 auto;
-  padding: 2rem;
+  height: 100vh;
+  display: flex;
+  flex-direction: column;
+}
+* {
+  box-sizing: border-box;
 }
 
-.demo-container {
+.header {
+  position: fixed;
+  top: 0;
+  left: 0;
+  right: 0;
+  background: white;
+  border-bottom: 1px solid #ccc;
+  padding: 1rem 2rem;
+  z-index: 100;
+  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+}
+
+.header h1 {
+  margin: 0 0 1rem 0;
+  font-size: 1.5rem;
+}
+
+.controls {
+  display: flex;
+  gap: 1rem;
+  margin-bottom: 0.5rem;
+}
+
+.status {
+  font-size: 0.9rem;
+  color: #666;
+}
+
+.main-container {
   display: grid;
   grid-template-columns: 1fr 1fr;
-  gap: 2rem;
-  height: 80vh;
+  height: 100vh;
+  padding-top: 140px; /* Space for fixed header */
 }
 
 .left-panel,
 .right-panel {
   display: flex;
   flex-direction: column;
+  padding: 1rem;
+  overflow: hidden;
+}
+
+.left-panel {
+  border-right: 1px solid #ccc;
+}
+
+.left-panel h2,
+.right-panel h2 {
+  margin: 0 0 1rem 0;
+  font-size: 1.2rem;
 }
 
 #markdown-input {
   flex: 1;
   width: 100%;
   resize: none;
-}
-
-.controls {
-  display: flex;
-  gap: 1rem;
-  margin: 1rem 0;
+  border: 1px solid #ccc;
+  padding: 1rem;
+  font-family: "Courier New", monospace;
+  overflow-y: auto;
 }
 
 #output-container {
   flex: 1;
   overflow-y: auto;
+  border: 1px solid #ccc;
+  padding: 1rem;
+  background: #fafafa;
 }
 
 @media (max-width: 768px) {
-  .demo-container {
+  .main-container {
     grid-template-columns: 1fr;
-    height: auto;
+    padding-top: 160px; /* More space on mobile */
   }
 
-  .left-panel,
+  .left-panel {
+    border-right: none;
+    border-bottom: 1px solid #ccc;
+    max-height: 40vh;
+  }
+
   .right-panel {
-    min-height: 400px;
+    max-height: 60vh;
+  }
+
+  .header {
+    padding: 1rem;
+  }
+
+  .controls {
+    flex-wrap: wrap;
+    gap: 0.5rem;
   }
 }
