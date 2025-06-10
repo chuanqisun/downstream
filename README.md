@@ -10,23 +10,7 @@ A semi-incremental streaming markdown parser and renderer for the web, designed 
 npm install semidown
 ```
 
-## Key Features
-
-- **Semi-incremental Parsing:**
-  - **Block-level incremental:** As new markdown text arrives (e.g., from a stream), the parser incrementally processes and renders new blocks (paragraphs, lists, code blocks, tables, etc.) without reprocessing the entire document.
-  - **Inline-level re-rendering:** Within a block, inline elements (bold, italics, links, code spans, etc.) are re-rendered as the block's content grows. This design ensures robust and correct inline rendering, even as partial input arrives.
-- **Streaming Support:** Feed markdown text in arbitrary chunks (e.g., as it arrives from a network or user input) and see the output update in real time.
-- **Pause, Resume, and Fast-forward:** Control the streaming process for demos, testing, or user interaction.
-- **Performance & Robustness:** The semi-incremental approach balances efficient updates with correct rendering, avoiding flicker or broken formatting as content streams in.
-
-## How It Works
-
-- The parser maintains state as new markdown text is written.
-- When a complete block is detected, it is parsed and rendered immediately.
-- If a block is incomplete (e.g., a code block or list is still being typed), it is held and re-parsed as more text arrives.
-- Inline elements within a block are always re-parsed on each update to ensure correctness.
-
-## Usage Example
+## Usage
 
 Below is a simplified usage example. See `src/main.ts` for a full-featured demo with UI controls.
 
@@ -49,7 +33,23 @@ const interval = setInterval(() => {
 }, 50);
 ```
 
-## Demo
+## Key Features
+
+- **Semi-incremental Parsing:**
+  - **Block-level incremental:** As new markdown text arrives (e.g., from a stream), the parser incrementally processes and renders new blocks (paragraphs, lists, code blocks, tables, etc.) without reprocessing the entire document.
+  - **Inline-level re-rendering:** Within a block, inline elements (bold, italics, links, code spans, etc.) are re-rendered as the block's content grows. This design ensures robust and correct inline rendering, even as partial input arrives.
+- **Streaming Support:** Feed markdown text in arbitrary chunks (e.g., as it arrives from a network or user input) and see the output update in real time.
+- **Pause, Resume, and Fast-forward:** Control the streaming process for demos, testing, or user interaction.
+- **Performance & Robustness:** The semi-incremental approach balances efficient updates with correct rendering, avoiding flicker or broken formatting as content streams in.
+
+## How It Works
+
+- The parser maintains state as new markdown text is written.
+- When a complete block is detected, it is parsed and rendered immediately.
+- If a block is incomplete (e.g., a code block or list is still being typed), it is held and re-parsed as more text arrives.
+- Inline elements within a block are always re-parsed on each update to ensure correctness.
+
+## Sample App
 
 The included demo (`src/main.ts`) provides a UI to:
 
