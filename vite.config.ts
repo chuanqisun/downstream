@@ -9,6 +9,6 @@ export default defineConfig({
       name: "Semidown",
       fileName: "semidown",
     },
-    sourcemap: "inline",
+    sourcemap: true,
   },
 });
