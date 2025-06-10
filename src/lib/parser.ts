@@ -23,7 +23,7 @@ export class MarkdownParser {
 
     this.marked = new Marked().use(
       markedShiki({
-        highlight(code, lang, props) {
+        highlight(code, lang, _props) {
           const highlightableLanguage = supportedLanguages.includes(lang) ? lang : "text";
 
           const highlightedHtml = highlighter.codeToHtml(code, {
