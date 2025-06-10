@@ -1,4 +1,4 @@
-import { StreamingMarkdownParser } from "./lib/streaming-down";
+import { StreamingMarkdownParser } from "./lib/streaming-markdown";
 import "./style.css";
 
 class StreamingDemo {
