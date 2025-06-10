@@ -1,0 +1,51 @@
+body {
+  margin: 0;
+}
+
+#app {
+  max-width: 1400px;
+  margin: 0 auto;
+  padding: 2rem;
+}
+
+.demo-container {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 2rem;
+  height: 80vh;
+}
+
+.left-panel,
+.right-panel {
+  display: flex;
+  flex-direction: column;
+}
+
+#markdown-input {
+  flex: 1;
+  width: 100%;
+  resize: none;
+}
+
+.controls {
+  display: flex;
+  gap: 1rem;
+  margin: 1rem 0;
+}
+
+#output-container {
+  flex: 1;
+  overflow-y: auto;
+}
+
+@media (max-width: 768px) {
+  .demo-container {
+    grid-template-columns: 1fr;
+    height: auto;
+  }
+
+  .left-panel,
+  .right-panel {
+    min-height: 400px;
+  }
+}
