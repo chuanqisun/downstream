@@ -1,4 +1,4 @@
-# Streaming Markdown Parser
+# Semidown
 
 A semi-incremental streaming markdown parser and renderer for the web, designed for real-time applications such as chat UIs, live documentation, and collaborative editors.
 
@@ -44,6 +44,7 @@ const interval = setInterval(() => {
 ## Demo
 
 The included demo (`src/main.ts`) provides a UI to:
+
 - Start, pause, resume, and stop streaming markdown input
 - See real-time updates as markdown is parsed and rendered
 - Experiment with different markdown features (lists, code, tables, etc.)
